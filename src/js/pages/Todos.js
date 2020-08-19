@@ -7,17 +7,25 @@ import * as TodoActions from "../actions/TodoActions";
 export default class Todos extends React.Component {
   constructor() {
     super();
+    // このbindをやらないと、getTodos()内でsetState()を呼び出せない。
+    this.getTodos = this.getTodos.bind(this);
     this.state = {
       todos: TodoStore.getAll()
     };
   }
 
   componentDidMount() {
-    TodoStore.on("change", () => {
-      this.setState({
-        todos: TodoStore.getAll()
-      })
-    })
+    TodoStore.on("change", this.getTodos);
+  }
+
+  componentWillUnmount() {
+    TodoStore.removeListener("change", this.getTodos);
+  }
+
+  getTodos() {
+    this.setState({
+      todos: TodoStore.getAll()
+    });
   }
 
   reloadTodos() {
