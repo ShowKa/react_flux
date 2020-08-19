@@ -26,6 +26,10 @@ class TodoStore extends EventEmitter {
     });
     this.emit("change");
   }
+  recieveTodos(todos) {
+    this.todos = todos;
+    this.emit("change");
+  }
   getAll() {
     return this.todos;
   }
@@ -33,6 +37,9 @@ class TodoStore extends EventEmitter {
     switch (action.type) {
       case "CREATE_TODO": {
         this.createTodo(action.text);
+      }
+      case "RECIEVE_TODOS": {
+        this.recieveTodos(action.todos);
       }
     }
   }

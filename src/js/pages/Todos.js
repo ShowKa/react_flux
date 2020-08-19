@@ -20,8 +20,8 @@ export default class Todos extends React.Component {
     })
   }
 
-  createTodo() {
-    TodoActions.createTodo("NEW TODO");
+  reloadTodos() {
+    TodoActions.reloadTodos();
   }
 
   render() {
@@ -33,11 +33,10 @@ export default class Todos extends React.Component {
 
     return (
       <div>
-        <button onClick={this.createTodo.bind(this)}>create!</button>
+        <button onClick={this.reloadTodos.bind(this)}>reload!</button>
         <h1>Todos</h1>
         <ul>{TodoComponents}</ul>
       </div>
     );
   }
 }
-
